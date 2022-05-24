@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -20,6 +21,22 @@ public class ProductService {
     public void setProductRepository(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
+
+    // DZ 2
+//    public Product save(Product product) {
+//        if (product.getId() != null) {
+//            Optional<Product> productFromDbOptional = productRepository.findById(product.getId());
+//            if (productFromDbOptional.isPresent()) {
+//                Product productFromDb = productFromDbOptional.get();
+//                productFromDb.setTitle(product.getTitle());
+//                productFromDb.setDate(product.getDate());
+//                productFromDb.setCost(product.getCost());
+//                productFromDb.setStatus(product.getStatus());
+//                return productDao.save(productFromDb);
+//            }
+//        }
+//        return productDao.save(product);
+//    }
 
     public List<Product> getAllProducts() {
         return (List<Product>)(productRepository.findAll());

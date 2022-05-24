@@ -6,6 +6,7 @@ import com.geekbrains.geekmarketwinter.services.CategoryService;
 import com.geekbrains.geekmarketwinter.services.ProductService;
 import com.geekbrains.geekmarketwinter.services.ImageSaverService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +27,13 @@ public class ProductController {
     public void setProductService(ProductService productService) {
         this.productService = productService;
     }
+
+    // DZ 2
+//    @PostMapping
+//    public String saveProduct(Product product) {
+//        productService.save(product);
+//        return "redirect:/products";
+//    }
 
     @Autowired
     public void setCategoryService(CategoryService categoryService) {
