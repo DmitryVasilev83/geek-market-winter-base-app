@@ -28,13 +28,6 @@ public class ProductController {
         this.productService = productService;
     }
 
-    // DZ 2
-//    @PostMapping
-//    public String saveProduct(Product product) {
-//        productService.save(product);
-//        return "redirect:/products";
-//    }
-
     @Autowired
     public void setCategoryService(CategoryService categoryService) {
         this.categoryService = categoryService;
@@ -44,4 +37,47 @@ public class ProductController {
     public void setImageSaverService(ImageSaverService imageSaverService) {
         this.imageSaverService = imageSaverService;
     }
+
+    // DZ 2
+    @GetMapping("/edit/{id}")
+    public String edit(Model model, @PathVariable(name = "id") Long id){
+        Product product =productService.getProductById(id);
+        if (product == null){
+            product = new Product();
+            product.setId(0L);
+        }
+        model.addAttribute("product", product);
+        model.addAttribute("categories", categoryService.getAllCategories());
+        return "/edit-product";
+    }
+    // DZ 2
+    @PostMapping("/edit")
+    public String processProductAddForm(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult,
+                              Model model, @RequestParam("file") MultipartFile file){
+
+        if(product.getId() == 0 && productService.isProductWithTitleExists(product.getTitle())){
+            bindingResult.addError(new ObjectError("product.title", "Товар с таким названием уже существует"));
+        }
+        if (bindingResult.hasErrors()){
+            model.addAttribute("categories", categoryService.getAllCategories());
+            return "/edit-product";
+        }
+        if (!file.isEmpty()){
+            String pathToSavedImage = imageSaverService.saveFile(file);
+            ProductImage productImage = new ProductImage();
+            productImage.setPath(pathToSavedImage);
+            productImage.setProduct(product);
+            product.addImage(productImage);
+        }
+        productService.saveProduct(product);
+
+        return "redirect:/shop";
+    }
+
+
+//    @PostMapping
+//    public String saveProduct(Product product) {
+//        productService.save(product);
+//        return "redirect:/products";
+//    }
 }
