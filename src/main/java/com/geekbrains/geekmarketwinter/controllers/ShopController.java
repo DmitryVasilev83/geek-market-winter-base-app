@@ -5,6 +5,7 @@ import com.geekbrains.geekmarketwinter.entites.Product;
 import com.geekbrains.geekmarketwinter.entites.User;
 import com.geekbrains.geekmarketwinter.repositories.specifications.ProductSpecs;
 import com.geekbrains.geekmarketwinter.services.*;
+import com.geekbrains.geekmarketwinter.utils.ShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
@@ -85,6 +86,7 @@ public class ShopController {
         }
 
         Page<Product> products = productService.getProductsWithPagingAndFiltering(currentPage, PAGE_SIZE, spec);
+
 
         model.addAttribute("products", products.getContent());
         model.addAttribute("page", currentPage);

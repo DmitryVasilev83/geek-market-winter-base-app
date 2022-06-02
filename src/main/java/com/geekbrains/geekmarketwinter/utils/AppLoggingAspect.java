@@ -9,6 +9,6 @@ public class AppLoggingAspect {
 
     @After("execution(public void com.geekbrains.geekmarketwinter.services.ShoppingCartService.addToCart(..))") // pointcut expression
     public void aopSimpleMethod() {
-        System.out.println("добален товар в корзину");
+        System.out.println("добален товар в корзину(AppLoggingAspect)");
     }
 }
