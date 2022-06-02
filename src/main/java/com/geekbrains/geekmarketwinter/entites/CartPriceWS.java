@@ -1,10 +1,10 @@
 package com.geekbrains.geekmarketwinter.entites;
 
-public class Greeting {
+public class CartPriceWS {
 
     private String content;
 
-    public Greeting(String content) {
+    public CartPriceWS(String content) {
         this.content = content;
     }
 
